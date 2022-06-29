@@ -1,9 +1,10 @@
 use std::fmt;
 
-pub(crate) struct Cell<'a> {
+#[derive(Clone)]
+pub(crate) struct Cell {
     pub(super) edge: i32,
-    pub next: Option<&'a mut Cell<'a>>,
-    pub next2: Option<&'a mut Cell<'a>>,
+    pub next: Option<Box<Cell>>,
+    pub next2: Option<Box<Cell>>,
     pub(super) state: i32,
     pub(super) visited: bool,
 }
@@ -11,7 +12,7 @@ pub(crate) struct Cell<'a> {
 pub(crate) const EPSILON: i32 = -1;
 pub(crate) const EMPTY: i32 = -2;
 
-impl Cell<'_> {
+impl Cell {
     pub(crate) fn new() -> Self {
         Cell {
             edge: EPSILON,
@@ -50,8 +51,32 @@ impl Cell<'_> {
     }
 }
 
-impl fmt::Display for Cell<'_> {
+impl fmt::Display for Cell {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{} {}{}", self.edge, self.state, self.visited)
+        let a: String;
+        let b: String;
+        match self.next.as_ref() {
+            Some(c) => {
+                a = format!(
+                    "edge: {}, state: {}, is_visited: {}",
+                    c.edge, c.state, c.visited
+                )
+            }
+            None => a = "None".to_string(),
+        };
+        match self.next2.as_ref() {
+            Some(c) => {
+                b = format!(
+                    "edge: {}, state: {}, is_visited: {}",
+                    c.edge, c.state, c.visited
+                )
+            }
+            None => b = "None".to_string(),
+        };
+        write!(
+            f,
+            "edge: {}, state: {}, is_visited: {}, next: [{}], next2: [{}]",
+            self.edge, self.state, self.visited, a, b
+        )
     }
 }

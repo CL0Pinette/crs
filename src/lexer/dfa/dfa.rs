@@ -24,7 +24,7 @@ impl<'a> DFA {
     pub(crate) fn add_state(&mut self, s: i32, is_final: bool) {
         self.m_states.push(s);
         if is_final {
-            self.m_final_states.push(s)
+            self.m_final_states.push(s);
         }
     }
 
