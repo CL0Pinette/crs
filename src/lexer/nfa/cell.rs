@@ -23,9 +23,6 @@ impl Cell {
         }
     }
 
-    pub(crate) fn get_edge(&mut self) -> i32 {
-        self.edge
-    }
     pub(crate) fn set_edge(&mut self, cell_type: i32) {
         self.edge = cell_type;
     }
@@ -35,10 +32,10 @@ impl Cell {
     pub(crate) fn set_unvisited(&mut self) {
         self.visited = false;
     }
-    pub(crate) fn is_visited(&mut self) -> bool {
+    pub(crate) fn is_visited(&self) -> bool {
         self.visited
     }
-    pub(crate) fn get_state(&mut self) -> i32 {
+    pub(crate) fn get_state(&self) -> i32 {
         self.state
     }
     pub(crate) fn set_state(&mut self, num: i32) {
@@ -48,6 +45,18 @@ impl Cell {
         self.next = None;
         self.next2 = None;
         self.state = -1;
+    }
+
+    pub(crate) fn _print(&self) {
+        println!("{}", self);
+        match self.clone().next {
+            Some(c1) => c1._print(),
+            None => {}
+        };
+        match self.clone().next2 {
+            Some(c1) => c1._print(),
+            None => {}
+        }
     }
 }
 

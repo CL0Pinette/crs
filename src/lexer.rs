@@ -34,7 +34,7 @@ pub fn lex(f: &mut File) {
 
     // let s = reg.replace_arrays("(a|bc)*d");
 
-    let s = reg.replace_arrays("(a|b)*abb");
+    let s = reg.replace_arrays("(test|tt)");
     let mut nfa = NFA::new(&reg.inf_to_post(&s));
 
     nfa.populate();

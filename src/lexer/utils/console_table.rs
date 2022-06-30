@@ -10,7 +10,6 @@ pub(crate) struct Table {
 #[derive(Clone)]
 pub(crate) enum Obj {
     S(String),
-    C(char),
     I(i32),
 }
 
@@ -18,7 +17,6 @@ impl Obj {
     fn to_string(&mut self) -> String {
         match self.into() {
             Some(c) => match c {
-                Obj::C(a) => a.to_string(),
                 Obj::I(i) => i.to_string(),
                 Obj::S(s) => s.to_string(),
             },
@@ -29,7 +27,6 @@ impl Obj {
 
 impl Table {
     pub(crate) fn new(col: i32, h: bool) -> Self {
-        let b = (0..col).collect::<Vec<_>>();
         Table {
             rows: Box::new(Vec::new()),
             column: col,
@@ -49,7 +46,7 @@ impl Table {
                 _ => (),
             }
         }
-        let mut row: Vec<Obj> = Vec::new();
+        let row: Vec<Obj> = Vec::new();
         // row.push(Obj::I(self.column));
         self.rows.push(row);
     }
@@ -63,7 +60,6 @@ impl Table {
             self.rows.push(v);
         }
         let len = match c.clone() {
-            Obj::C(_a) => 1,
             Obj::I(a) => a / 10 + 1,
             Obj::S(s) => s.len() as i32,
         };

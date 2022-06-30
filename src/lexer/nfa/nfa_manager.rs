@@ -13,15 +13,15 @@ pub(crate) struct NFAManager {
 impl NFAManager {
     pub(crate) fn new() -> Self {
         let mut arr: Vec<Box<Cell>> = Vec::new();
-        for _ in 0..256 {
+        for _ in 0..3000 {
             arr.push(Box::new(Cell::new()));
         }
         Self {
-            _nfa_max: 256,
+            _nfa_max: 3000,
             nfa_states_arr: arr,
             nfa_stack: Stack::new(),
             next_alloc: 0,
-            nfa_states: 0,
+            nfa_states: 3000,
         }
     }
 
